@@ -4,7 +4,7 @@ import pygal
 import time
 import snmp_helper
 
-rtr = ('184.105.247.71', 161)
+rtr = ('184.105.247.70', 161)
 snmp_creds = ('pysnmp', 'galileo1', 'galileo1')
 
 alert_address = 'jerry.bonner@gmail.com'
@@ -22,7 +22,7 @@ pkt_oids = {'ifInUcastPkts_fa4':'1.3.6.1.2.1.2.2.1.11.5',
 pkt_graph_file = "fa4_pkt.svg"
 
 # Graph every x seconds
-sample_time = 3
+sample_time = 300
 
 #-----------
 
@@ -39,36 +39,34 @@ def graph_snmp_data(xdata, sample_time, title, filename):
     line_chart.title = title
 
     # create x axis data based on num of samples * sample_time
-
     x_labels = []
-   
+  
+    # Get the length of the list of the first x-line
     num_samples =  len(xdata.iteritems().next()[1])
 
+    # Create the xaxis
     for i in range(0,num_samples):
        x_labels.append(sample_time * i)
  
     line_chart.x_labels = x_labels
 
-    # Add each one of the above lists into the graph as a line with corresponding label
-
     for mib,data in xdata.iteritems():
-        print mib
-        print data
 
-        # process data
-
+        # process xdata elements by subtracting and getting the difference over time
         prev_num = 0
         processed_xdata = []
+
         for num in data:
             if prev_num > 0:
+
+                # apparently snmp_helper must set everything to str types
+                # so we must cast to int() so we can do math
                 processed_xdata.append(int(num) - int(prev_num))
+
                 prev_num = num
             else:
                 prev_num = num
-
-        print processed_xdata
  
-        #line_chart.add('InPackets', fa4_in_packets)
         line_chart.add(mib, processed_xdata)
 
     # Create an output image file from this
