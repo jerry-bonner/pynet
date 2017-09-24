@@ -41,9 +41,10 @@ def graph_snmp_data(xdata, sample_time, title, filename):
     # create x axis data based on num of samples * sample_time
 
     x_labels = []
-    
-    # get length of first item in xdata dict
-    for i in len(xdata.iteritems().next()):
+   
+    num_samples =  len(xdata.iteritems().next()[1])
+
+    for i in range(0,num_samples):
        x_labels.append(sample_time * i)
  
     line_chart.x_labels = x_labels
@@ -53,8 +54,22 @@ def graph_snmp_data(xdata, sample_time, title, filename):
     for mib,data in xdata.iteritems():
         print mib
         print data
+
+        # process data
+
+        prev_num = 0
+        processed_xdata = []
+        for num in data:
+            if prev_num > 0:
+                processed_xdata.append(int(num) - int(prev_num))
+                prev_num = num
+            else:
+                prev_num = num
+
+        print processed_xdata
+ 
         #line_chart.add('InPackets', fa4_in_packets)
-        line_chart.add(mib, data)
+        line_chart.add(mib, processed_xdata)
 
     # Create an output image file from this
     line_chart.render_to_file(filename)
@@ -93,8 +108,8 @@ if __name__ == "__main__":
 
         # graph raw snmp data to file
 
-        graph_snmp_data(oct_data, sample_time, ifDescr + " Bytes",   oct_graph_file)
-        graph_snmp_data(pkt_data, sample_time, ifDescr + " Packets", pkt_graph_file)
+        graph_snmp_data(oct_data, sample_time, ifDesc + " Bytes",   oct_graph_file)
+        graph_snmp_data(pkt_data, sample_time, ifDesc + " Packets", pkt_graph_file)
 
         t = t-1
 
