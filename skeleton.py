@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+
+rtrsnmpuser = 'pysnmp'
+rtrsnmpauth = 'galileo1'
+rtrsnmpkey  = 'galileo1'
+
+rtrs = {
+  "pynet-sw2 ": {
+    "ssh_port": "22", 
+    "username": "admin1", 
+    "eapi_port": "443", 
+    "password": "99saturday", 
+    "ip_addr": "184.105.247.73"
+  }, 
+  "pynet-sw3 ": {
+    "ssh_port": "22", 
+    "username": "admin1", 
+    "eapi_port": "443", 
+    "password": "99saturday", 
+    "ip_addr": "184.105.247.74"
+  }, 
+  "pynet-rtr2 ": {
+    "ssh_port": "22", 
+    "username": "pyclass", 
+    "password": "88newclass", 
+    "snmp_port": "161", 
+    "ip_addr": "184.105.247.71"
+  }, 
+  "pynet-jnpr-srx1 ": {
+    "ssh_port": "22", 
+    "username": "pyclass", 
+    "password": "88newclass", 
+    "ip_addr": "184.105.247.76", 
+    "netconf_port": "830"
+  }, 
+  "pynet-sw1 ": {
+    "ssh_port": "22", 
+    "username": "admin1", 
+    "eapi_port": "443", 
+    "password": "99saturday", 
+    "ip_addr": "184.105.247.72"
+  }, 
+  "pynet-sw4 ": {
+    "ssh_port": "22", 
+    "username": "admin1", 
+    "eapi_port": "443", 
+    "password": "99saturday", 
+    "ip_addr": "184.105.247.75"
+  }, 
+  "pynet-rtr1 ": {
+    "ssh_port": "22", 
+    "username": "pyclass", 
+    "password": "88newclass", 
+    "snmp_port": "161", 
+    "ip_addr": "184.105.247.70"
+  }
+}
+#-----------
+
+
+def main():
+    return
+ 
+if __name__ == "__main__":
+    main()

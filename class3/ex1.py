@@ -38,8 +38,8 @@ def send_email_alert(email, last_change, current_change):
     message = "Last change %s / New Change %s" % (last_change, current_change)
 
     email_helper.send_mail(email, subject, message, 'test@twb-tech.com') 
-    
-if __name__ == "__main__":
+   
+def main():
     last_change = get_last_config_change(save_file)
     current_change = get_config_change(rtr, snmp_creds)
 
@@ -53,3 +53,6 @@ if __name__ == "__main__":
     else:
         # store config change for the first time
         dump_last_config_change(current_change, save_file)
+ 
+if __name__ == "__main__":
+    main()

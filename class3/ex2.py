@@ -71,9 +71,8 @@ def graph_snmp_data(xdata, sample_time, title, filename):
 
     # Create an output image file from this
     line_chart.render_to_file(filename)
- 
-if __name__ == "__main__":
 
+def main():
     ifDesc = poll_snmp_oid(rtr, snmp_creds, descr_oid)
 
     data = {}
@@ -112,3 +111,6 @@ if __name__ == "__main__":
         t = t-1
 
         time.sleep(sample_time) 
+ 
+if __name__ == "__main__":
+    main()
