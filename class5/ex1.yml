@@ -1,0 +1,11 @@
+---
+- hosts: local
+  tasks:
+   - name: Generate configs
+     template: src=./ex1_config.txt dest=./ex1_{{item.hostname}}.txt
+     with_items:
+       - {hostname: rtr1, ip_addr: 192.168.1.10, access_vlan: 10, snmp_community: readonly, secret: whisper, default_gateway: 192.168.1.1 }
+       - {hostname: rtr2, ip_addr: 192.168.2.10, access_vlan: 10, snmp_community: readonly, secret: whisper, default_gateway: 192.168.2.1 }
+       - {hostname: rtr3, ip_addr: 192.168.3.10, access_vlan: 10, snmp_community: readonly, secret: whisper, default_gateway: 192.168.3.1 }
+       - {hostname: rtr4, ip_addr: 192.168.4.10, access_vlan: 10, snmp_community: readonly, secret: whisper, default_gateway: 192.168.4.1 }
+       - {hostname: rtr5, ip_addr: 192.168.5.10, access_vlan: 10, snmp_community: readonly, secret: whisper, default_gateway: 192.168.5.1 }

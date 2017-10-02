@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from netmiko import ConnectHandler
+
 rtrsnmpuser = 'pysnmp'
 rtrsnmpauth = 'galileo1'
 rtrsnmpkey  = 'galileo1'
@@ -33,7 +35,6 @@ rtrs = {
     "username": "pyclass", 
     "password": "88newclass", 
     "ip": "184.105.247.76", 
-    "netconf_port": "830",
     "device_type": "juniper" 
   }, 
   "pynet-sw1": {
@@ -49,21 +50,27 @@ rtrs = {
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.75"
+    "ip": "184.105.247.75",
     "device_type": "arista_eos" 
   }, 
   "pynet-rtr1": {
     "port": "22", 
     "username": "pyclass", 
     "password": "88newclass", 
-    "ip": "184.105.247.70"
-    "device_type": "cisco" 
+    "ip": "184.105.247.70",
+    "device_type": "cisco_ios" 
   }
 }
-#-----------
-
 
 def main():
+  
+    rlist = ('pynet-rtr1', 'pynet-rtr2', 'pynet-jnpr-srx1')
+
+    for r in rlist:
+        c = ConnectHandler(**rtrs[r])
+
+        print c.send_command("show arp")
+ 
     return
  
 if __name__ == "__main__":

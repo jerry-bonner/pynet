@@ -1,69 +1,81 @@
 #!/usr/bin/env python
 
+import pexpect
+
 rtrsnmpuser = 'pysnmp'
 rtrsnmpauth = 'galileo1'
 rtrsnmpkey  = 'galileo1'
 
 rtrs = {
   "pynet-sw2": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.73",
-    "device_type": "arista_eos"
+    "ip_addr": "184.105.247.73"
   }, 
   "pynet-sw3": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.74",
-    "device_type": "arista_eos"
+    "ip_addr": "184.105.247.74"
   }, 
   "pynet-rtr2": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "pyclass", 
     "password": "88newclass", 
-    "ip": "184.105.247.71",
-    "device_type": "cisco_ios" 
+    "snmp_port": "161", 
+    "ip_addr": "184.105.247.71"
   }, 
   "pynet-jnpr-srx1": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "pyclass", 
     "password": "88newclass", 
-    "ip": "184.105.247.76", 
-    "netconf_port": "830",
-    "device_type": "juniper" 
+    "ip_addr": "184.105.247.76", 
+    "netconf_port": "830"
   }, 
   "pynet-sw1": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.72",
-    "device_type": "arista_eos" 
+    "ip_addr": "184.105.247.72"
   }, 
   "pynet-sw4": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.75"
-    "device_type": "arista_eos" 
+    "ip_addr": "184.105.247.75"
   }, 
   "pynet-rtr1": {
-    "port": "22", 
+    "ssh_port": "22", 
     "username": "pyclass", 
     "password": "88newclass", 
-    "ip": "184.105.247.70"
-    "device_type": "cisco" 
+    "snmp_port": "161", 
+    "ip_addr": "184.105.247.70"
   }
 }
 #-----------
 
 
 def main():
+
+    rtr = rtrs['pynet-rtr2']
+
+    c = pexpect.spawn("ssh -l {} {} -p {}".format(rtr['username'], rtr['ip_addr'], rtr['ssh_port']))
+    c.timeout = 3
+    
+    c.expect('assword:')
+    c.sendline(rtr['password'])
+
+    c.expect('#')
+    c.sendline("show ip int br")
+    c.expect('#')
+    print c.before
+
+    
     return
  
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from netmiko import ConnectHandler
+
 rtrsnmpuser = 'pysnmp'
 rtrsnmpauth = 'galileo1'
 rtrsnmpkey  = 'galileo1'
@@ -49,21 +51,27 @@ rtrs = {
     "username": "admin1", 
     "eapi_port": "443", 
     "password": "99saturday", 
-    "ip": "184.105.247.75"
+    "ip": "184.105.247.75",
     "device_type": "arista_eos" 
   }, 
   "pynet-rtr1": {
     "port": "22", 
     "username": "pyclass", 
     "password": "88newclass", 
-    "ip": "184.105.247.70"
+    "ip": "184.105.247.70",
     "device_type": "cisco" 
   }
 }
-#-----------
-
 
 def main():
+    
+    c = ConnectHandler(**rtrs['pynet-rtr2'])
+    c.config_mode()
+    prompt = c.find_prompt()
+
+    if (prompt.count('(config)#')):
+        print "config mode confirmed."
+    
     return
  
 if __name__ == "__main__":
