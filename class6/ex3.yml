@@ -1,0 +1,13 @@
+---
+
+- name: EX3
+  hosts: arista
+  
+  tasks:
+   - name: Set Ethernet2 Trunk 
+     eos_switchport: name=Ethernet2 mode=trunk trunk_native_vlan=1 trunk_allowed_vlans=448,956,289 
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https

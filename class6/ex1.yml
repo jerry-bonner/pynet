@@ -1,0 +1,27 @@
+---
+
+- name: EX1
+  hosts: arista
+  
+  tasks:
+   - name: Create VLAN 448
+     eos_vlan: name=jb448 vlanid=448
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+   - name: Create VLAN 956 
+     eos_vlan: name=jb956 vlanid=956
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+   - name: Create VLAN 289 
+     eos_vlan: name=jb289 vlanid=289
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https

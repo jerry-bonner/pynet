@@ -1,0 +1,27 @@
+---
+
+- name: EX4
+  hosts: arista
+  
+  tasks:
+  - name: Set Ethernet2 Description
+    eos_interface: name=Ethernet2 description=""
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+  - name: Set Ethernet2 Access
+    eos_switchport: name=Ethernet2 mode=access access_vlan=1 trunk_allowed_vlans=1-4094
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+  - name: Remove VLANS 448 956 289
+    eos_switchport: name=Ethernet2 mode=trunk trunk_native_vlan=1 trunk_allowed_vlans=448,956,289 state=absent
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
