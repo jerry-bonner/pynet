@@ -4,10 +4,10 @@ import pexpect
 
 rtrsnmpuser = 'pysnmp'
 rtrsnmpauth = 'galileo1'
-rtrsnmpkey  = 'galileo1'
+rtrsnmpkey = 'galileo1'
 
 rtrs = {
-  "pynet-sw2": {
+    "pynet-sw2": {
     "ssh_port": "22", 
     "username": "admin1", 
     "eapi_port": "443", 
