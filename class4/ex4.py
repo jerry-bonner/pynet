@@ -65,7 +65,7 @@ def main():
     rtr = rtrs['pynet-rtr2']
 
     c = pexpect.spawn("ssh -l {} {} -p {}".format(rtr['username'], rtr['ip_addr'], rtr['ssh_port']))
-    c.timeout = 3
+    c.timeout = 10 
     
     c.expect('assword:')
     c.sendline(rtr['password'])
@@ -76,7 +76,7 @@ def main():
 
     c.expect('#')
     
-    c.sendline("logging buffered 10000")
+    c.sendline("logging buffered 10001")
 
     c.expect('#')
 
